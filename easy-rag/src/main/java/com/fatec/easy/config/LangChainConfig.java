@@ -1,5 +1,6 @@
-package com.fatec.easy.service;
+package com.fatec.easy.config;
 
+import com.fatec.easy.service.RagAssistant;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
@@ -75,11 +76,6 @@ public class LangChainConfig {
     }
 
     // 5. Retriever (Busca os documentos relevantes)
-    /**
-     * utiliza vetores (embeddings) para encontrar os segmentos de texto mais
-     * similares semanticamente à pergunta do usuário,
-     * o que constitui a definição clássica de recuperação semântica
-     */
     @Bean
     public ContentRetriever contentRetriever(EmbeddingStore<TextSegment> embeddingStore,
             EmbeddingModel embeddingModel) {
@@ -93,13 +89,10 @@ public class LangChainConfig {
     }
 
     // 6. O Assistente configurado (Conecta Chat + RAG + Memória)
-    /**
-     * conecta o modelo de chat com o retriever de conteúdo e a memória do chat
-     */
     @Bean
-    public Assistant assistant(ChatLanguageModel chatLanguageModel, ContentRetriever contentRetriever) {
-        logger.info(">>>>>> Configurando o Assistant com memória e retriever...");
-        return AiServices.builder(Assistant.class)
+    public RagAssistant ragAssistant(ChatLanguageModel chatLanguageModel, ContentRetriever contentRetriever) {
+        logger.info(">>>>>> Configurando o RagAssistant com memória e retriever...");
+        return AiServices.builder(RagAssistant.class)
                 .chatLanguageModel(chatLanguageModel)
                 .contentRetriever(contentRetriever)
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(10))

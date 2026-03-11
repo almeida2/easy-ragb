@@ -2,10 +2,12 @@ package com.fatec.easy.service;
 
 import dev.langchain4j.service.SystemMessage;
 
-// O chatModel deve apontar para o nome do método @Bean na LangChainConfig
-
-//@AiService
-public interface Assistant {
+/**
+ * Interface que representa o Assistente RAG (Recuperação e Geração).
+ * É um AiService do LangChain4j que orquestra o processo de recuperação e
+ * geração de respostas.
+ */
+public interface RagAssistant {
 
     @SystemMessage({
             "Você é o 'Easy Assist', um tutor inteligente da FATEC especializado em auxiliar alunos.",
