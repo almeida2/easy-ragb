@@ -33,6 +33,9 @@ public class IndexingController {
         } catch (IOException e) {
             return ResponseEntity.internalServerError()
                     .body("Erro ao processar o arquivo para indexação: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body("Erro ao processar o arquivo para indexação: " + e.getMessage());
         }
     }
 }
